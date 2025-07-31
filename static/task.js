@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", function () {
 const apiUrl = "http://127.0.0.1:8000/tasks";
 // This script fetches tasks from a fastAPI 
         async function fetchTasks() {
@@ -11,7 +12,7 @@ const apiUrl = "http://127.0.0.1:8000/tasks";
 // This script displays the tasks in a list format
             tasks.forEach(task => {
                 const item = document.createElement("li");
-                item.textContent = `${task.id}: ${task.title} - ${task.completed ? "successful" : "failed"}`;
+                item.textContent = `${task.id}.  ${task.title}`;
 
                 const del = document.createElement("button");
                 del.textContent = "Delete";
@@ -42,4 +43,4 @@ const apiUrl = "http://127.0.0.1:8000/tasks";
         };
 
         fetchTasks();
-    
+    });
