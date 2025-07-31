@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
@@ -52,3 +54,9 @@ def delete_task(task_id: int):
             return tasks
         raise HTTPException(status_code=404, detail="Task not found")  
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+# Serve the HTML interface
+@app.get("/", response_class=HTMLResponse)
+def get_interface():
+    return FileResponse("index.html")
