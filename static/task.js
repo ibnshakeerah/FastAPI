@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-const apiUrl = "http://127.0.0.1:8000/tasks";
+const apiUrl = "/tasks";
 // This script fetches tasks from a fastAPI 
         async function fetchTasks() {
             const res = await fetch(apiUrl);
