@@ -54,9 +54,9 @@ def delete_task(task_id: int):
             return tasks
         raise HTTPException(status_code=404, detail="Task not found")  
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/static", StaticFiles(directory="."), name="static")
 
 # Serve the HTML interface
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
 def get_interface():
     return FileResponse("index.html")
