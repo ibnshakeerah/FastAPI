@@ -1,15 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from typing import List
-from fastapi.responses import HTMLResponse
+from fastapi.responses import   FileResponse
 from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
-
-@app.get("/")
-
-def hello():
-    return {"message": "Hello FastAPI!"}
 
 # Indicates how the task should look like
 class Task(BaseModel):
