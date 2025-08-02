@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
 from typing import List
-from fastapi.responses import   FileResponse
+from fastapi.responses import   HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
@@ -49,7 +49,7 @@ def update_task(task_id: int, updated_task: Task):
     for index, current_task in enumerate(tasks):
         if current_task.id == task_id:
           tasks[index] = update_task
-          return update_task 
+          return tasks
     raise HTTPException(status_code=404, detail="Task not found")
 
 # Delete a task
@@ -59,7 +59,7 @@ def delete_task(task_id: int):
         if current_task.id == task_id:
             del tasks[index]
             return tasks
-        raise HTTPException(status_code=404, detail="Task not found")  
+    raise HTTPException(status_code=404, detail="Task not found")  
 
 # CORS middelware to allow requests from the frontend
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -68,6 +68,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 # Serve the HTML interface
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def get_interface(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
